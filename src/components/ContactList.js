@@ -8,7 +8,7 @@ const ContactList = (props) => {
   };
 
   const editContact = (id) => {
-    props.editContactId(id)
+    props.editContactId(id,)
   }
 
   return (
@@ -29,11 +29,11 @@ const ContactList = (props) => {
                 style={{ color: "red", marginTop: "7px" }}
                 onClick={() => { deleteConactHandler(contact.id) }}
               ></i>
-              <i
+              {/* <i
                 className="edit alternate outline icon"
                 style={{ color: "red", marginTop: "7px" }}
-                onClick={() => { editContact(contact.id) }}
-              ></i>
+                onClick={() => { editContact(contact.id, "edit") }}
+              ></i> */}
             </div>
           )
         })

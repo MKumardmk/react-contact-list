@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import TextInput from './TextInput'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
-const AddContact = ({ editContact, addUser = () => { }, updateUser = () => { }, }) => {
+const AddContact = ({ editUser, editContact, addUser = () => { }, updateUser = () => { }, }) => {
 
-  const [editUser, setEditUser] = useState('')
+  // const [editUser, setEditUser] = useState('')
   const [isEditUser, setIsEditUser] = useState(false)
   const [name, setName] = useState(editContact.name ?? "")
   const [email, setEmail] = useState('')
@@ -18,7 +20,7 @@ const AddContact = ({ editContact, addUser = () => { }, updateUser = () => { }, 
     JSON.parse(localStorage.getItem(LOCAL_STORAGE)) ?? []
   );
 
-
+  console.log(editUser, "edit user")
 
   const setData = async () => {
     await setName(editContact.name ?? "")
@@ -29,6 +31,13 @@ const AddContact = ({ editContact, addUser = () => { }, updateUser = () => { }, 
 
     console.log(editContact.name)
   }
+  const clearAllData = () => {
+    setName("")
+    setEmail("")
+    setPhone("")
+    setState("")
+    SetCity("")
+  }
   const addNewUser = (e) => {
     e.preventDefault();
     const regex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
@@ -38,12 +47,32 @@ const AddContact = ({ editContact, addUser = () => { }, updateUser = () => { }, 
     } else if (regex.test(email) == false) alert("Please enter  the valid email!");
     else
       addUser({ name, email, phone, state, city })
+    clearAllData()
+    toast('Contact Saved successfully!', {
+      position: "bottom-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
   }
   const updateNewUser = () => {
 
   }
+
   return (
     <div className="ui main">
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        closeOnClick
+        theme="light"
+      />
       <h2>Add Contact</h2>
       <form className="ui form" onSubmit={addUser} >
         <TextInput
